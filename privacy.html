@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy policy — SNAPOUT</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0b1a;
+    color: #e8e9f3;
+    line-height: 1.7;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  .back {
+    display: inline-block;
+    color: #a5a8c4;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 32px;
+  }
+  .back:hover { color: #c6bff0; }
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  .updated {
+    color: #7b7e96;
+    font-size: 13px;
+    margin-bottom: 36px;
+  }
+  h2 {
+    font-size: 19px;
+    font-weight: 600;
+    color: #c6bff0;
+    margin: 36px 0 12px;
+  }
+  h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: #d8d5ec;
+    margin: 22px 0 8px;
+  }
+  p, li {
+    font-size: 15px;
+    color: #c3c5d8;
+    margin-bottom: 12px;
+  }
+  ul {
+    padding-left: 22px;
+    margin-bottom: 14px;
+  }
+  strong { color: #e8e9f3; }
+  a { color: #c6bff0; }
+  .highlight {
+    padding: 16px 20px;
+    background: rgba(139, 92, 246, 0.08);
+    border-left: 3px solid #8B5CF6;
+    border-radius: 6px;
+    margin: 20px 0;
+  }
+  .highlight p { margin: 0; color: #d8d5ec; }
+  footer {
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(200, 200, 240, 0.08);
+    font-size: 13px;
+    color: #7b7e96;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <a href="index.html" class="back">← Back to SNAPOUT</a>
+
+  <h1>Privacy policy</h1>
+  <p class="updated">Last updated: April 20, 2026</p>
+
+  <div class="highlight">
+    <p><strong>Short version:</strong> SNAPOUT does not collect, transmit, share, or sell any of your personal data. Everything the app tracks stays on your device. We have no servers that receive your information. We do not use analytics, advertising, or third-party tracking.</p>
+  </div>
+
+  <h2>1. Who we are</h2>
+  <p>SNAPOUT is an Android application developed and maintained by The SNAPOUT team ("we", "us", "our"). You can reach us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>.</p>
+
+  <h2>2. What information SNAPOUT accesses</h2>
+  <p>To help you manage your screen time, SNAPOUT needs access to certain information from your device. Here is exactly what we access, why, and where it goes:</p>
+
+  <h3>App usage statistics</h3>
+  <p>SNAPOUT uses Android's <code>PACKAGE_USAGE_STATS</code> permission to see which apps are currently in the foreground on your device. This is the core functionality that lets the app detect when you are using Instagram, YouTube, Facebook, or any other app you have chosen to monitor.</p>
+  <p><strong>This information is read in real time and is never stored, transmitted, or shared.</strong> We do not keep a history of every app you open. We only track cumulative time spent on the apps you have explicitly chosen to monitor — and even that tracking happens entirely on your device.</p>
+
+  <h3>Display over other apps</h3>
+  <p>SNAPOUT uses the <code>SYSTEM_ALERT_WINDOW</code> permission to show full-screen warning overlays when you exceed your session limits. This permission is only used to display our intervention screens. It is not used to capture what you are doing in other apps.</p>
+
+  <h3>Vibration</h3>
+  <p>SNAPOUT uses the <code>VIBRATE</code> permission to create haptic feedback during cooldown periods, reinforcing the intervention.</p>
+
+  <h3>Foreground service</h3>
+  <p>SNAPOUT runs a foreground service to continuously monitor your app usage. A persistent notification is shown while the service runs, as required by Android. The service only performs the monitoring and intervention functions described above.</p>
+
+  <h3>Boot completed</h3>
+  <p>SNAPOUT uses the <code>RECEIVE_BOOT_COMPLETED</code> permission to automatically restart the monitoring service after your device reboots, so that you do not have to manually relaunch the app every time.</p>
+
+  <h2>3. What we store on your device</h2>
+  <p>SNAPOUT uses Android's standard <code>SharedPreferences</code> mechanism to save the following on your phone:</p>
+  <ul>
+    <li>Your chosen session limits, cooldown duration, and other settings</li>
+    <li>The list of apps you have selected to monitor</li>
+    <li>Daily usage totals for the apps you monitor</li>
+    <li>Your commitment agreement answers (name, target hours, personal pledges)</li>
+    <li>Streak counts, milestones, and interruption counts</li>
+  </ul>
+  <p>This data never leaves your device. It is not backed up to our servers (we have none). It is not synced to any cloud. It is stored in your app's private data directory, which only SNAPOUT can access.</p>
+
+  <h2>4. What we do NOT collect</h2>
+  <ul>
+    <li>We do not collect your name, email, phone number, or any contact details (any name you enter into the commitment form stays on your device and is never transmitted).</li>
+    <li>We do not collect device identifiers, advertising IDs, or fingerprints.</li>
+    <li>We do not collect location data.</li>
+    <li>We do not collect contacts, photos, files, or media.</li>
+    <li>We do not collect the content of notifications or messages.</li>
+    <li>We do not use third-party analytics (no Firebase Analytics, no Google Analytics, no Mixpanel, nothing).</li>
+    <li>We do not use advertising SDKs or show ads in the app.</li>
+    <li>We do not use crash reporting services that transmit data off-device.</li>
+  </ul>
+
+  <h2>5. Data sharing</h2>
+  <p>We do not share any data with third parties. We do not sell any data. We do not have any partners, advertisers, or service providers who receive information about you through SNAPOUT.</p>
+
+  <h2>6. Data retention</h2>
+  <p>Because all data stays on your device, retention is entirely under your control:</p>
+  <ul>
+    <li>Uninstalling SNAPOUT deletes all locally stored data.</li>
+    <li>Clearing the app's storage in your phone settings deletes all locally stored data.</li>
+    <li>We have no servers and no mechanism to retain anything after you remove the app.</li>
+  </ul>
+
+  <h2>7. Children's privacy</h2>
+  <p>SNAPOUT is not directed at children under 13. We do not knowingly collect personal information from children. Because we do not collect personal information from anyone, this is guaranteed by the design of the app.</p>
+
+  <h2>8. Your rights</h2>
+  <p>Depending on where you live, you may have rights under laws such as GDPR (Europe), CCPA (California), or the DPDP Act (India). Since we do not collect or store your personal information on any server:</p>
+  <ul>
+    <li><strong>Right to access:</strong> You can view all data the app has stored on your device directly in the app.</li>
+    <li><strong>Right to delete:</strong> You can delete all data by clearing the app's storage or uninstalling.</li>
+    <li><strong>Right to object to processing:</strong> You can stop the app from processing anything by disabling the Usage Access permission or uninstalling.</li>
+  </ul>
+  <p>If you have questions about your rights, contact us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>.</p>
+
+  <h2>9. Security</h2>
+  <p>SNAPOUT's data is stored in Android's standard app-private storage, which is sandboxed by the operating system and protected from other apps. Because we do not transmit data over the network, there is no network-layer risk to your SNAPOUT data from us. We strongly recommend keeping your device secured with a lock screen, keeping Android updated, and only installing apps from trusted sources.</p>
+
+  <h2>10. Changes to this policy</h2>
+  <p>If we ever change how SNAPOUT handles data — for example, if we add optional cloud sync for paid users in the future — we will update this policy with a new "Last updated" date at the top, and we will notify users through the app itself before the change takes effect. Until then, the no-server, no-collection design of SNAPOUT is a core promise.</p>
+
+  <h2>11. Contact</h2>
+  <p>Questions about this policy or about how SNAPOUT handles data? Email us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>.</p>
+
+  <footer>
+    <p>SNAPOUT · The SNAPOUT team · <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a></p>
+  </footer>
+
+</div>
+</body>
+</html>
