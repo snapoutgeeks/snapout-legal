@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>SNAPOUT — Tester Feedback</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-deep: #06060f;
+    --bg-card: rgba(255,255,255,0.04);
+    --bg-card-hover: rgba(255,255,255,0.07);
+    --border: rgba(255,255,255,0.10);
+    --border-strong: rgba(155,142,232,0.45);
+    --accent: #9B8EE8;
+    --accent-soft: rgba(155,142,232,0.18);
+    --accent-glow: rgba(155,142,232,0.35);
+    --text: #ECEDF5;
+    --text-dim: #9BA0B5;
+    --text-faint: #6A6F87;
+    --whatsapp: #25D366;
+    --whatsapp-dark: #128C7E;
+    --warn: #F2B663;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0; padding: 0;
+    background: var(--bg-deep);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+  body::before {
+    content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 10%, rgba(155,142,232,0.18), transparent 60%),
+      radial-gradient(ellipse 50% 40% at 80% 90%, rgba(100,150,255,0.12), transparent 65%);
+  }
+  .stage {
+    position: relative; z-index: 1;
+    max-width: 600px; margin: 0 auto;
+    padding: 32px 20px 120px;
+  }
+  /* Header */
+  .hero {
+    text-align: center; margin: 16px 0 36px;
+  }
+  .badge {
+    display: inline-block;
+    font-size: 11px; letter-spacing: 0.32em;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border: 1px solid var(--border-strong);
+    padding: 6px 14px; border-radius: 100px;
+    text-transform: uppercase; font-weight: 600;
+    margin-bottom: 18px;
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 38px; font-weight: 600;
+    margin: 0 0 12px; line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .hero p {
+    color: var(--text-dim);
+    margin: 0; font-size: 15px;
+    max-width: 460px; margin-inline: auto;
+    text-wrap: pretty;
+  }
+  /* Section */
+  .section {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 24px 22px;
+    margin-bottom: 18px;
+    backdrop-filter: blur(10px);
+  }
+  .section-num {
+    font-size: 11px; letter-spacing: 0.3em;
+    color: var(--accent);
+    font-weight: 600; text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 600;
+    margin: 0 0 4px;
+  }
+  .section-sub {
+    color: var(--text-dim); font-size: 13px;
+    margin: 0 0 22px;
+  }
+  /* Question */
+  .q { margin-bottom: 22px; }
+  .q:last-child { margin-bottom: 0; }
+  .q-label {
+    display: block;
+    font-size: 14px; font-weight: 500;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.45;
+  }
+  .q-hint { color: var(--text-faint); font-size: 12px; font-weight: 400; }
+
+  /* Stars */
+  .stars { display: flex; gap: 8px; }
+  .star {
+    flex: 1; aspect-ratio: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    transition: all 0.18s;
+    color: var(--text-faint);
+    user-select: none;
+  }
+  .star:hover { background: rgba(255,255,255,0.07); }
+  .star.active {
+    background: var(--accent-soft);
+    border-color: var(--border-strong);
+    color: var(--warn);
+    box-shadow: 0 0 16px rgba(155,142,232,0.18);
+  }
+
+  /* Options (radio/checkbox) */
+  .opts { display: flex; flex-direction: column; gap: 8px; }
+  .opt {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: all 0.18s;
+    font-size: 14px;
+  }
+  .opt:hover { background: var(--bg-card-hover); }
+  .opt input { display: none; }
+  .opt .dot {
+    width: 18px; height: 18px;
+    border: 2px solid var(--text-faint);
+    border-radius: 50%;
+    flex-shrink: 0;
+    transition: all 0.18s;
+    position: relative;
+  }
+  .opt input[type="checkbox"] ~ .dot { border-radius: 5px; }
+  .opt:has(input:checked) {
+    background: var(--accent-soft);
+    border-color: var(--border-strong);
+  }
+  .opt:has(input:checked) .dot {
+    border-color: var(--accent);
+    background: var(--accent);
+  }
+  .opt:has(input:checked) .dot::after {
+    content: ""; position: absolute;
+    inset: 3px; border-radius: 50%;
+    background: var(--bg-deep);
+  }
+  .opt:has(input[type="checkbox"]:checked) .dot::after {
+    border-radius: 2px;
+    inset: 3px;
+    background: var(--bg-deep);
+  }
+
+  /* Scale 1-5 */
+  .scale {
+    display: flex; gap: 6px;
+  }
+  .scale-btn {
+    flex: 1; padding: 14px 0;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    color: var(--text-dim);
+    font-size: 15px; font-weight: 600;
+    cursor: pointer;
+    transition: all 0.18s;
+    text-align: center;
+  }
+  .scale-btn.active {
+    background: var(--accent-soft);
+    border-color: var(--border-strong);
+    color: var(--text);
+    box-shadow: 0 0 16px rgba(155,142,232,0.15);
+  }
+  .scale-labels {
+    display: flex; justify-content: space-between;
+    margin-top: 8px;
+    font-size: 11px; color: var(--text-faint);
+  }
+
+  /* Textarea */
+  textarea, input[type="text"] {
+    width: 100%;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px 16px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 80px;
+    transition: all 0.18s;
+  }
+  textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--border-strong);
+    background: rgba(155,142,232,0.06);
+  }
+  textarea::placeholder, input::placeholder {
+    color: var(--text-faint);
+  }
+
+  /* Submit */
+  .submit-wrap {
+    margin-top: 32px;
+    display: flex; flex-direction: column; gap: 14px;
+  }
+  .btn-send {
+    background: var(--whatsapp);
+    color: #062114;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px; font-weight: 700;
+    border: none;
+    padding: 18px;
+    border-radius: 18px;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    letter-spacing: -0.005em;
+    box-shadow: 0 8px 28px rgba(37,211,102,0.22);
+  }
+  .btn-send:active { transform: scale(0.98); }
+  .btn-send svg { width: 20px; height: 20px; }
+  .btn-send-sub {
+    color: var(--text-faint);
+    font-size: 12px;
+    text-align: center;
+    margin: 0;
+  }
+
+  .progress-bar {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    z-index: 10;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #c4b8ff);
+    width: 0%;
+    transition: width 0.3s;
+  }
+
+  .footer-note {
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 12px;
+    margin-top: 24px;
+    line-height: 1.6;
+  }
+  .footer-note strong { color: var(--text-dim); }
+
+  /* Toast */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%);
+    background: rgba(20,22,40,0.95);
+    border: 1px solid var(--border-strong);
+    color: var(--text);
+    padding: 14px 22px;
+    border-radius: 14px;
+    font-size: 13px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease;
+    z-index: 100;
+    backdrop-filter: blur(10px);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+
+<div class="stage">
+  <div class="hero">
+    <span class="badge">Closed Beta · Tester Feedback</span>
+    <h1>Help us shape SNAPOUT</h1>
+    <p>You don't need to open the app to use it — that's the point. But your honest take on what's working (and what isn't) is what makes the next version better. 5 minutes, that's it.</p>
+  </div>
+
+  <!-- ═══ SECTION 1: ABOUT YOU ═══ -->
+  <div class="section">
+    <div class="section-num">01 · About You</div>
+    <h2 class="section-title">Quick context</h2>
+    <p class="section-sub">So we know how to read your answers.</p>
+
+    <div class="q">
+      <label class="q-label">Your name <span class="q-hint">(or a nickname)</span></label>
+      <input type="text" data-key="name" placeholder="What should we call you?" />
+    </div>
+
+    <div class="q">
+      <label class="q-label">How long have you had SNAPOUT installed?</label>
+      <div class="opts" data-radio="install_duration">
+        <label class="opt"><input type="radio" name="install_duration" value="Less than 2 days"><span class="dot"></span>Less than 2 days</label>
+        <label class="opt"><input type="radio" name="install_duration" value="2–7 days"><span class="dot"></span>2–7 days</label>
+        <label class="opt"><input type="radio" name="install_duration" value="1–2 weeks"><span class="dot"></span>1–2 weeks</label>
+        <label class="opt"><input type="radio" name="install_duration" value="More than 2 weeks"><span class="dot"></span>More than 2 weeks</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Your phone <span class="q-hint">(brand & model)</span></label>
+      <input type="text" data-key="phone_model" placeholder="e.g. OnePlus Nord 3, Samsung A54, Pixel 7" />
+    </div>
+
+    <div class="q">
+      <label class="q-label">Android version <span class="q-hint">(Settings → About phone → Android version)</span></label>
+      <div class="opts" data-radio="android_version">
+        <label class="opt"><input type="radio" name="android_version" value="Android 11 or older"><span class="dot"></span>Android 11 or older</label>
+        <label class="opt"><input type="radio" name="android_version" value="Android 12"><span class="dot"></span>Android 12</label>
+        <label class="opt"><input type="radio" name="android_version" value="Android 13"><span class="dot"></span>Android 13</label>
+        <label class="opt"><input type="radio" name="android_version" value="Android 14"><span class="dot"></span>Android 14</label>
+        <label class="opt"><input type="radio" name="android_version" value="Android 15"><span class="dot"></span>Android 15</label>
+        <label class="opt"><input type="radio" name="android_version" value="Not sure"><span class="dot"></span>Not sure</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">SNAPOUT version you're testing <span class="q-hint">(check the Play Console invite or app info — leave blank if unsure)</span></label>
+      <input type="text" data-key="app_version" placeholder="e.g. 1.0.3 (build 12)" />
+    </div>
+
+    <div class="q">
+      <label class="q-label">Roughly how often do you pick up your phone in a day?</label>
+      <div class="opts" data-radio="phone_pickups">
+        <label class="opt"><input type="radio" name="phone_pickups" value="Less than 30 times"><span class="dot"></span>Less than 30 times</label>
+        <label class="opt"><input type="radio" name="phone_pickups" value="30–60 times"><span class="dot"></span>30–60 times</label>
+        <label class="opt"><input type="radio" name="phone_pickups" value="60–100 times"><span class="dot"></span>60–100 times</label>
+        <label class="opt"><input type="radio" name="phone_pickups" value="100+ times — it's bad"><span class="dot"></span>100+ times — it's bad</label>
+        <label class="opt"><input type="radio" name="phone_pickups" value="Honestly no idea"><span class="dot"></span>Honestly no idea</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Have you used a screen-time app before SNAPOUT?</label>
+      <div class="opts" data-radio="prior_apps">
+        <label class="opt"><input type="radio" name="prior_apps" value="Never"><span class="dot"></span>Never tried any</label>
+        <label class="opt"><input type="radio" name="prior_apps" value="Built-in Digital Wellbeing only"><span class="dot"></span>Just built-in Digital Wellbeing</label>
+        <label class="opt"><input type="radio" name="prior_apps" value="One Sec, Opal, Forest, etc."><span class="dot"></span>Yes — One Sec / Opal / Forest / similar</label>
+        <label class="opt"><input type="radio" name="prior_apps" value="Tried many — none stuck"><span class="dot"></span>Tried many — none stuck</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Which apps did you set SNAPOUT to monitor? <span class="q-hint">(pick any that apply)</span></label>
+      <div class="opts" data-checkbox="monitored_apps">
+        <label class="opt"><input type="checkbox" value="Instagram"><span class="dot"></span>Instagram</label>
+        <label class="opt"><input type="checkbox" value="YouTube"><span class="dot"></span>YouTube</label>
+        <label class="opt"><input type="checkbox" value="Facebook"><span class="dot"></span>Facebook</label>
+        <label class="opt"><input type="checkbox" value="TikTok / Reels"><span class="dot"></span>TikTok / Reels</label>
+        <label class="opt"><input type="checkbox" value="X / Twitter"><span class="dot"></span>X / Twitter</label>
+        <label class="opt"><input type="checkbox" value="Other (added myself)"><span class="dot"></span>Other apps I added myself</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 2: CORE EXPERIENCE ═══ -->
+  <div class="section">
+    <div class="section-num">02 · Core Experience</div>
+    <h2 class="section-title">Did it actually work?</h2>
+    <p class="section-sub">The whole point is that SNAPOUT runs in the background and intervenes when you open a doom-scrolling app. Tell us how that part went.</p>
+
+    <div class="q">
+      <label class="q-label">When you opened a monitored app, did SNAPOUT block it as expected?</label>
+      <div class="opts" data-radio="blocking_works">
+        <label class="opt"><input type="radio" name="blocking_works" value="Yes — every time"><span class="dot"></span>Yes, every time</label>
+        <label class="opt"><input type="radio" name="blocking_works" value="Most of the time"><span class="dot"></span>Most of the time</label>
+        <label class="opt"><input type="radio" name="blocking_works" value="Sometimes"><span class="dot"></span>Sometimes — inconsistent</label>
+        <label class="opt"><input type="radio" name="blocking_works" value="Rarely / never"><span class="dot"></span>Rarely or never</label>
+        <label class="opt"><input type="radio" name="blocking_works" value="I haven't tested this yet"><span class="dot"></span>I haven't tested this yet</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">After the session limit was reached, did the cooldown actually stop you?</label>
+      <div class="scale" data-scale="cooldown_effective">
+        <div class="scale-btn" data-val="1">1</div>
+        <div class="scale-btn" data-val="2">2</div>
+        <div class="scale-btn" data-val="3">3</div>
+        <div class="scale-btn" data-val="4">4</div>
+        <div class="scale-btn" data-val="5">5</div>
+      </div>
+      <div class="scale-labels"><span>Easy to bypass</span><span>Stopped me cold</span></div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">How did the session timing feel?</label>
+      <div class="opts" data-radio="session_timing">
+        <label class="opt"><input type="radio" name="session_timing" value="Felt accurate — matched real time"><span class="dot"></span>Felt accurate — matched real time</label>
+        <label class="opt"><input type="radio" name="session_timing" value="Sometimes reset to 0 unexpectedly"><span class="dot"></span>Sometimes reset to 0 unexpectedly</label>
+        <label class="opt"><input type="radio" name="session_timing" value="Counted faster than reality"><span class="dot"></span>Counted faster than it should have</label>
+        <label class="opt"><input type="radio" name="session_timing" value="Counted slower than reality"><span class="dot"></span>Counted slower than it should have</label>
+        <label class="opt"><input type="radio" name="session_timing" value="Didn't notice / pay attention"><span class="dot"></span>Didn't notice</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Did you ever try Monk Mode (full phone lockout)?</label>
+      <div class="opts" data-radio="monk_mode_tried">
+        <label class="opt"><input type="radio" name="monk_mode_tried" value="Yes — and it helped"><span class="dot"></span>Yes — it helped me focus</label>
+        <label class="opt"><input type="radio" name="monk_mode_tried" value="Yes — but had issues"><span class="dot"></span>Yes — but ran into issues</label>
+        <label class="opt"><input type="radio" name="monk_mode_tried" value="No — didn't feel I needed it"><span class="dot"></span>No — didn't feel I needed it</label>
+        <label class="opt"><input type="radio" name="monk_mode_tried" value="No — couldn't figure out how"><span class="dot"></span>No — couldn't figure out how to start it</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">When you reopened a blocked app and saw the cooldown screen, what did you do?</label>
+      <div class="opts" data-radio="cooldown_reaction">
+        <label class="opt"><input type="radio" name="cooldown_reaction" value="Waited it out / put phone down"><span class="dot"></span>Closed the phone and waited it out</label>
+        <label class="opt"><input type="radio" name="cooldown_reaction" value="Tried to bypass it"><span class="dot"></span>Tried to bypass it</label>
+        <label class="opt"><input type="radio" name="cooldown_reaction" value="Started Monk Mode"><span class="dot"></span>Switched into Monk Mode</label>
+        <label class="opt"><input type="radio" name="cooldown_reaction" value="Got frustrated and uninstalled"><span class="dot"></span>Got frustrated</label>
+        <label class="opt"><input type="radio" name="cooldown_reaction" value="Never reached the cooldown screen"><span class="dot"></span>Never reached the cooldown screen</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 3: VISUALS & UI ═══ -->
+  <div class="section">
+    <div class="section-num">03 · Look & Feel</div>
+    <h2 class="section-title">The screens you saw</h2>
+    <p class="section-sub">Block screens, cooldown screens, animations — how did they land?</p>
+
+    <div class="q">
+      <label class="q-label">Rate the look of the cooldown / monk mode screens</label>
+      <div class="stars" data-stars="visual_rating">
+        <div class="star" data-val="1">★</div>
+        <div class="star" data-val="2">★</div>
+        <div class="star" data-val="3">★</div>
+        <div class="star" data-val="4">★</div>
+        <div class="star" data-val="5">★</div>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Which animation backgrounds did you see (if any)? <span class="q-hint">(pick any)</span></label>
+      <div class="opts" data-checkbox="animations_seen">
+        <label class="opt"><input type="checkbox" value="Cosmos / nebula"><span class="dot"></span>Cosmos / nebula</label>
+        <label class="opt"><input type="checkbox" value="Mountains / clouds"><span class="dot"></span>Mountains / clouds</label>
+        <label class="opt"><input type="checkbox" value="Ocean"><span class="dot"></span>Ocean</label>
+        <label class="opt"><input type="checkbox" value="Forest"><span class="dot"></span>Forest</label>
+        <label class="opt"><input type="checkbox" value="Aurora"><span class="dot"></span>Aurora</label>
+        <label class="opt"><input type="checkbox" value="Other / can't remember"><span class="dot"></span>Other / can't remember which</label>
+        <label class="opt"><input type="checkbox" value="Didn't see any animations"><span class="dot"></span>Didn't see any animations</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Did the animations feel calming, or did they feel out of place?</label>
+      <div class="opts" data-radio="animation_feel">
+        <label class="opt"><input type="radio" name="animation_feel" value="Calming — made me want to wait"><span class="dot"></span>Calming — made me actually want to wait</label>
+        <label class="opt"><input type="radio" name="animation_feel" value="Nice but not impactful"><span class="dot"></span>Nice but didn't change how I felt</label>
+        <label class="opt"><input type="radio" name="animation_feel" value="Distracting"><span class="dot"></span>Distracting</label>
+        <label class="opt"><input type="radio" name="animation_feel" value="Slow / janky"><span class="dot"></span>Slow or janky on my phone</label>
+        <label class="opt"><input type="radio" name="animation_feel" value="N/A — didn't see them"><span class="dot"></span>N/A — didn't see them</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Was the settings screen easy to understand?</label>
+      <div class="scale" data-scale="settings_clarity">
+        <div class="scale-btn" data-val="1">1</div>
+        <div class="scale-btn" data-val="2">2</div>
+        <div class="scale-btn" data-val="3">3</div>
+        <div class="scale-btn" data-val="4">4</div>
+        <div class="scale-btn" data-val="5">5</div>
+      </div>
+      <div class="scale-labels"><span>Confusing</span><span>Crystal clear</span></div>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 4: BUGS ═══ -->
+  <div class="section">
+    <div class="section-num">04 · Bugs & Glitches</div>
+    <h2 class="section-title">What broke?</h2>
+    <p class="section-sub">Be brutal. Anything weird counts.</p>
+
+    <div class="q">
+      <label class="q-label">Did SNAPOUT crash, freeze, or stop monitoring at any point?</label>
+      <div class="opts" data-radio="bug_frequency">
+        <label class="opt"><input type="radio" name="bug_frequency" value="Never — rock solid"><span class="dot"></span>Never — rock solid</label>
+        <label class="opt"><input type="radio" name="bug_frequency" value="Once or twice"><span class="dot"></span>Once or twice</label>
+        <label class="opt"><input type="radio" name="bug_frequency" value="A few times"><span class="dot"></span>A few times</label>
+        <label class="opt"><input type="radio" name="bug_frequency" value="Often"><span class="dot"></span>Often</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">If you saw a bug, describe it <span class="q-hint">(what happened, what app you were in, what phone)</span></label>
+      <textarea data-key="bug_details" placeholder="e.g. 'Opened Instagram after 30 mins, the cooldown screen showed but the timer started from 2:00:00 instead of remaining time. Phone is OnePlus Nord, Android 13.'"></textarea>
+    </div>
+  </div>
+
+  <!-- ═══ SECTION 5: HONEST TAKE ═══ -->
+  <div class="section">
+    <div class="section-num">05 · Honest Take</div>
+    <h2 class="section-title">The big questions</h2>
+    <p class="section-sub">No wrong answers. We need the truth, not what sounds nice.</p>
+
+    <div class="q">
+      <label class="q-label">After using SNAPOUT, did you actually scroll less?</label>
+      <div class="opts" data-radio="reduced_scroll">
+        <label class="opt"><input type="radio" name="reduced_scroll" value="Yes — noticeably less"><span class="dot"></span>Yes — noticeably less</label>
+        <label class="opt"><input type="radio" name="reduced_scroll" value="A little"><span class="dot"></span>A little</label>
+        <label class="opt"><input type="radio" name="reduced_scroll" value="About the same"><span class="dot"></span>About the same</label>
+        <label class="opt"><input type="radio" name="reduced_scroll" value="Not yet — too early to tell"><span class="dot"></span>Not yet — too early to tell</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Why aren't you opening the SNAPOUT app itself more often? <span class="q-hint">(real reason, not polite reason)</span></label>
+      <div class="opts" data-checkbox="not_opening_reasons">
+        <label class="opt"><input type="checkbox" value="It works in the background — no need"><span class="dot"></span>It works in the background — no need to open</label>
+        <label class="opt"><input type="checkbox" value="Don't know what's inside the app"><span class="dot"></span>I don't know what's inside the app</label>
+        <label class="opt"><input type="checkbox" value="Forget it's installed"><span class="dot"></span>I forget it's installed</label>
+        <label class="opt"><input type="checkbox" value="Nothing to do once setup is done"><span class="dot"></span>Nothing to do once setup is done</label>
+        <label class="opt"><input type="checkbox" value="Want to but app doesn't show notifications"><span class="dot"></span>Would, but app doesn't pull me in</label>
+        <label class="opt"><input type="checkbox" value="Other"><span class="dot"></span>Other</label>
+      </div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">If you opened the SNAPOUT app right now, what would you want to see inside?</label>
+      <textarea data-key="want_inside_app" placeholder="e.g. 'Daily streak, total time saved, charts, weekly summary, quotes, achievements...'"></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Would you recommend SNAPOUT to a friend?</label>
+      <div class="scale" data-scale="nps">
+        <div class="scale-btn" data-val="1">1</div>
+        <div class="scale-btn" data-val="2">2</div>
+        <div class="scale-btn" data-val="3">3</div>
+        <div class="scale-btn" data-val="4">4</div>
+        <div class="scale-btn" data-val="5">5</div>
+      </div>
+      <div class="scale-labels"><span>No way</span><span>Already told them</span></div>
+    </div>
+
+    <div class="q">
+      <label class="q-label">One thing you'd change or add tomorrow?</label>
+      <textarea data-key="one_change" placeholder="The single most important thing on your mind."></textarea>
+    </div>
+
+    <div class="q">
+      <label class="q-label">Anything else? <span class="q-hint">(optional)</span></label>
+      <textarea data-key="anything_else" placeholder="Praise, complaints, ideas, edge cases..."></textarea>
+    </div>
+  </div>
+
+  <!-- ═══ SUBMIT ═══ -->
+  <div class="submit-wrap">
+    <button class="btn-send" id="sendBtn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.498 14.382c-.301-.15-1.767-.867-2.04-.966-.273-.101-.473-.15-.673.15-.197.295-.771.964-.944 1.162-.175.195-.349.21-.646.075-.3-.15-1.263-.465-2.403-1.485-.888-.795-1.484-1.77-1.66-2.07-.174-.3-.019-.465.13-.615.136-.135.301-.345.451-.523.146-.181.194-.301.297-.496.1-.21.049-.375-.025-.524-.075-.15-.672-1.62-.922-2.206-.24-.584-.487-.51-.672-.51-.172-.015-.371-.015-.571-.015-.2 0-.523.074-.797.359-.273.3-1.045 1.02-1.045 2.475s1.07 2.865 1.219 3.075c.149.18 2.095 3.195 5.076 4.485.71.3 1.26.48 1.69.629.71.227 1.36.195 1.871.121.571-.091 1.766-.721 2.016-1.426.255-.705.255-1.29.18-1.425-.074-.135-.27-.21-.57-.345m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.49 3.488"/></svg>
+      Send via WhatsApp
+    </button>
+    <p class="btn-send-sub">Opens WhatsApp with your answers ready to send. We never collect anything you don't tap "send" on.</p>
+  </div>
+
+  <p class="footer-note">
+    <strong>Thank you.</strong><br>
+    Every reply rewrites a piece of the next version.
+  </p>
+</div>
+
+<div class="toast" id="toast">Please answer at least your name first 🙏</div>
+
+<script>
+const WHATSAPP_NUMBER = '918142190877';
+
+// ── State ────────────────────────────────────────
+const state = {};
+
+// ── Star ratings ────────────────────────────────
+document.querySelectorAll('[data-stars]').forEach(group => {
+  const key = group.dataset.stars;
+  const stars = group.querySelectorAll('.star');
+  stars.forEach(star => {
+    star.addEventListener('click', () => {
+      const val = parseInt(star.dataset.val);
+      state[key] = val;
+      stars.forEach(s => s.classList.toggle('active', parseInt(s.dataset.val) <= val));
+      updateProgress();
+    });
+  });
+});
+
+// ── Scale 1-5 ───────────────────────────────────
+document.querySelectorAll('[data-scale]').forEach(group => {
+  const key = group.dataset.scale;
+  const btns = group.querySelectorAll('.scale-btn');
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      state[key] = parseInt(btn.dataset.val);
+      btns.forEach(b => b.classList.toggle('active', b === btn));
+      updateProgress();
+    });
+  });
+});
+
+// ── Radio groups ────────────────────────────────
+document.querySelectorAll('[data-radio]').forEach(group => {
+  const key = group.dataset.radio;
+  group.querySelectorAll('input[type="radio"]').forEach(input => {
+    input.addEventListener('change', () => {
+      state[key] = input.value;
+      updateProgress();
+    });
+  });
+});
+
+// ── Checkbox groups ─────────────────────────────
+document.querySelectorAll('[data-checkbox]').forEach(group => {
+  const key = group.dataset.checkbox;
+  group.querySelectorAll('input[type="checkbox"]').forEach(input => {
+    input.addEventListener('change', () => {
+      const checked = [...group.querySelectorAll('input:checked')].map(i => i.value);
+      state[key] = checked;
+      updateProgress();
+    });
+  });
+});
+
+// ── Text inputs ─────────────────────────────────
+document.querySelectorAll('[data-key]').forEach(input => {
+  const key = input.dataset.key;
+  input.addEventListener('input', () => {
+    state[key] = input.value.trim();
+    updateProgress();
+  });
+});
+
+// ── Progress bar ────────────────────────────────
+const TOTAL_FIELDS = 23;
+function updateProgress() {
+  const filled = Object.keys(state).filter(k => {
+    const v = state[k];
+    if (Array.isArray(v)) return v.length > 0;
+    return v !== '' && v !== null && v !== undefined;
+  }).length;
+  const pct = Math.min(100, Math.round((filled / TOTAL_FIELDS) * 100));
+  document.getElementById('progressFill').style.width = pct + '%';
+}
+
+// ── Toast ───────────────────────────────────────
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2600);
+}
+
+// ── Build WhatsApp message ──────────────────────
+function buildMessage() {
+  const lines = [];
+  lines.push('🌌 *SNAPOUT — Tester Feedback*');
+  lines.push('━━━━━━━━━━━━━━━━━━━━');
+  lines.push('');
+
+  const sections = [
+    {
+      title: '👤 ABOUT ME',
+      fields: [
+        ['Name', 'name'],
+        ['Installed for', 'install_duration'],
+        ['Phone', 'phone_model'],
+        ['Android', 'android_version'],
+        ['App version', 'app_version'],
+        ['Daily pickups', 'phone_pickups'],
+        ['Prior screen-time apps', 'prior_apps'],
+        ['Apps monitored', 'monitored_apps']
+      ]
+    },
+    {
+      title: '⚙️ CORE EXPERIENCE',
+      fields: [
+        ['Blocking worked', 'blocking_works'],
+        ['Cooldown effective (1-5)', 'cooldown_effective'],
+        ['Session timing', 'session_timing'],
+        ['Tried Monk Mode', 'monk_mode_tried'],
+        ['Reaction to cooldown', 'cooldown_reaction']
+      ]
+    },
+    {
+      title: '🎨 LOOK & FEEL',
+      fields: [
+        ['Visual rating (★)', 'visual_rating'],
+        ['Animations seen', 'animations_seen'],
+        ['How animations felt', 'animation_feel'],
+        ['Settings clarity (1-5)', 'settings_clarity']
+      ]
+    },
+    {
+      title: '🐛 BUGS',
+      fields: [
+        ['Crash frequency', 'bug_frequency'],
+        ['Bug details', 'bug_details']
+      ]
+    },
+    {
+      title: '💭 HONEST TAKE',
+      fields: [
+        ['Scrolled less?', 'reduced_scroll'],
+        ['Why not opening app', 'not_opening_reasons'],
+        ['Want inside app', 'want_inside_app'],
+        ['Recommend (1-5)', 'nps'],
+        ['One thing to change', 'one_change'],
+        ['Anything else', 'anything_else']
+      ]
+    }
+  ];
+
+  sections.forEach(sec => {
+    const filledFields = sec.fields.filter(([_, k]) => {
+      const v = state[k];
+      if (Array.isArray(v)) return v.length > 0;
+      return v !== '' && v !== null && v !== undefined;
+    });
+    if (filledFields.length === 0) return;
+
+    lines.push(`*${sec.title}*`);
+    filledFields.forEach(([label, k]) => {
+      const v = state[k];
+      const formatted = Array.isArray(v) ? v.join(', ') : v;
+      if (typeof formatted === 'string' && formatted.includes('\n')) {
+        lines.push(`• ${label}:`);
+        formatted.split('\n').forEach(l => lines.push(`   ${l}`));
+      } else {
+        lines.push(`• ${label}: ${formatted}`);
+      }
+    });
+    lines.push('');
+  });
+
+  lines.push('━━━━━━━━━━━━━━━━━━━━');
+  lines.push('_Sent from SNAPOUT Feedback Form_');
+  return lines.join('\n');
+}
+
+// ── Send ────────────────────────────────────────
+document.getElementById('sendBtn').addEventListener('click', () => {
+  if (!state.name || state.name.length < 1) {
+    toast('Please add your name so we know who sent this 🙏');
+    document.querySelector('[data-key="name"]').focus();
+    return;
+  }
+  const filled = Object.keys(state).filter(k => {
+    const v = state[k];
+    if (Array.isArray(v)) return v.length > 0;
+    return v !== '' && v !== null && v !== undefined;
+  }).length;
+  if (filled < 4) {
+    toast('Answer a few more questions before sending 🙂');
+    return;
+  }
+
+  const msg = buildMessage();
+  const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+  window.location.href = url;
+});
+</script>
+</body>
+</html>
