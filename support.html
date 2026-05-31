@@ -67,11 +67,12 @@
     font-weight: 600;
     color: #c6bff0;
     margin: 40px 0 20px;
+    letter-spacing: -0.3px;
   }
   .faq {
     background: rgba(30, 35, 60, 0.4);
     border: 1px solid rgba(200, 200, 240, 0.08);
-    border-radius: 10px;
+    border-radius: 12px;
     padding: 18px 20px;
     margin-bottom: 12px;
   }
@@ -85,6 +86,7 @@
     font-size: 14px;
     color: #c3c5d8;
     margin-bottom: 8px;
+    line-height: 1.6;
   }
   .faq p:last-child { margin-bottom: 0; }
   .faq code {
@@ -94,6 +96,22 @@
     font-size: 13px;
     color: #d8d5ec;
   }
+  .faq a { color: #c6bff0; }
+  .category-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: #8B5CF6;
+    text-transform: uppercase;
+    margin: 36px 0 14px;
+  }
+  ul.bug-list {
+    color: #c3c5d8;
+    font-size: 15px;
+    padding-left: 22px;
+    margin-top: 10px;
+  }
+  ul.bug-list li { margin-bottom: 6px; }
   footer {
     margin-top: 56px;
     padding-top: 24px;
@@ -101,7 +119,7 @@
     font-size: 13px;
     color: #7b7e96;
   }
-  footer a { color: #a5a8c4; }
+  footer a { color: #a5a8c4; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -115,34 +133,107 @@
   <div class="contact-card">
     <h2>Email us</h2>
     <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>
-    <p>We usually reply within 1–3 business days. When you email, please include your phone model and Android version so we can help faster.</p>
+    <p>We usually reply within 1–3 business days. Please include your phone model and Android version so we can help faster.</p>
   </div>
 
-  <h2 class="section">Frequently asked questions</h2>
+  <!-- ── Getting started ── -->
+  <p class="category-label">Getting started</p>
 
   <div class="faq">
     <h3>Why does SNAPOUT need Usage Access permission?</h3>
-    <p>Usage Access is the only way on Android for an app to detect which app is currently in the foreground. Without it, SNAPOUT cannot tell when you have opened Instagram or YouTube, and therefore cannot intervene. This permission is read-only — we cannot see what you do inside those apps, only that they are open.</p>
+    <p>Usage Access is the only way on Android for an app to detect which app is in the foreground. Without it, SNAPOUT cannot know when you've opened Instagram or YouTube and cannot intervene. This is a read-only permission — we cannot see what you do inside those apps, only that they are open.</p>
   </div>
 
   <div class="faq">
     <h3>Why does SNAPOUT need "Display over other apps"?</h3>
-    <p>This permission lets SNAPOUT show the full-screen warning when you exceed your session limit. Without it, SNAPOUT could only show a notification that you could easily ignore. The whole point is to actually interrupt you.</p>
+    <p>This lets SNAPOUT show the full-screen warning when your session ends. Without it, SNAPOUT could only send a notification you'd easily ignore. The whole point is to actually interrupt the habit loop.</p>
   </div>
 
   <div class="faq">
-    <h3>Does SNAPOUT collect my data?</h3>
-    <p>No. Everything stays on your device. No servers, no accounts, no analytics, no ads. Read the full <a href="privacy.html" style="color: #c6bff0;">privacy policy</a> for details.</p>
+    <h3>What is the Commitment form?</h3>
+    <p>The commitment form is where you set your daily target hours, your pledges, and — most importantly — what activities you'll do when SNAPOUT stops you (The Switch). It's a personal agreement between you and your future self. You only fill it out once.</p>
   </div>
 
   <div class="faq">
-    <h3>The app isn't detecting Instagram / YouTube properly. What do I do?</h3>
-    <p>First, go to Android Settings → Apps → SNAPOUT → Permissions and make sure Usage Access is granted. Second, make sure battery optimization is disabled for SNAPOUT (otherwise Android will kill the monitoring service in the background). Third, some phone manufacturers (Xiaomi, Realme, Vivo, Oppo) have extra "autostart" settings that need to be enabled manually. If you still see issues, email us with your phone model.</p>
+    <h3>What is "The Switch"?</h3>
+    <p>During your commitment, you select activities you actually want to do instead of scrolling — reading, walking, calling someone, playing outdoors, meditating, etc. When SNAPOUT blocks you during a cooldown, it shows these activities back to you. Your own promise, reflecting back at you. You can select as many activities as you want.</p>
+  </div>
+
+  <!-- ── Core features ── -->
+  <p class="category-label">Core features</p>
+
+  <div class="faq">
+    <h3>What is Phase 1 and cooldown?</h3>
+    <p>When your session time runs out, SNAPOUT shows a 60-second Phase 1 screen with two choices: enter Monk Mode (full phone lockdown) or start a Cooldown (rest from monitored apps only). If you don't choose within 60 seconds, Cooldown starts automatically. During Cooldown, your phone works normally — only the apps you chose to monitor are blocked.</p>
+  </div>
+
+  <div class="faq">
+    <h3>What is Monk Mode?</h3>
+    <p>Monk Mode locks your phone completely for 1–4 hours. You choose which apps stay accessible for emergencies (Phone, WhatsApp, Maps, etc.). Everything else is blocked until the timer ends. It's designed for deep focus when you need to genuinely eliminate distraction.</p>
+  </div>
+
+  <div class="faq">
+    <h3>What is Night Shield?</h3>
+    <p>Night Shield blocks your monitored apps during the hours you set (default 9 PM to 6 AM). It fires immediately when you open a monitored app during those hours, regardless of how many sessions you've had. Night Shield cannot be disabled while it's active — this is by design.</p>
+  </div>
+
+  <div class="faq">
+    <h3>What is Guardian Mode?</h3>
+    <p>Guardian Mode lets parents set up a child profile with a daily screen time cap, difficulty level (Light / Moderate / Strict), and a PIN to prevent the child from changing settings. In Guardian Mode, there is no Phase 1 choice screen — the child goes directly to cooldown when the session ends. A parent PIN is required to access any settings.</p>
+  </div>
+
+  <div class="faq">
+    <h3>How do badges work?</h3>
+    <p>SNAPOUT has 20 badges across four rarity tiers — Common, Rare, Epic, and Legendary. They're earned automatically as you use the app: signing your commitment, maintaining streaks, completing cooldowns, saving hours, enabling Night Shield, and more. If you're signed in with Google, badges sync to your account automatically.</p>
+  </div>
+
+  <!-- ── Account & sync ── -->
+  <p class="category-label">Account & cloud sync</p>
+
+  <div class="faq">
+    <h3>Do I need to sign in?</h3>
+    <p>No. SNAPOUT works completely without signing in. Sign-in is optional and only used for cloud backup of your settings, commitment, streak, and badges — so they restore automatically if you change phones or reinstall.</p>
+  </div>
+
+  <div class="faq">
+    <h3>What happens when I sign in for the first time?</h3>
+    <p>Your current local settings are uploaded to the cloud and linked to your Google account. From then on, changes sync automatically whenever you update your settings.</p>
+  </div>
+
+  <div class="faq">
+    <h3>What happens when I sign in on a new device or after reinstalling?</h3>
+    <p>SNAPOUT detects that you're a returning user, restores your settings from the cloud, and takes you directly to the Dashboard — you won't need to go through setup again.</p>
+  </div>
+
+  <div class="faq">
+    <h3>How do I delete my account and all my data?</h3>
+    <p>Go to Profile → Delete Account. This permanently deletes your Firestore backup and your Firebase account. Local data is deleted when you uninstall the app. We retain nothing after deletion.</p>
+  </div>
+
+  <!-- ── Troubleshooting ── -->
+  <p class="category-label">Troubleshooting</p>
+
+  <div class="faq">
+    <h3>SNAPOUT isn't detecting Instagram / YouTube. What do I do?</h3>
+    <p>1. Go to Android Settings → Apps → Special app access → Usage access → enable SNAPOUT.</p>
+    <p>2. Disable battery optimization for SNAPOUT (Settings → Battery → Battery optimization → All apps → SNAPOUT → Don't optimize).</p>
+    <p>3. On Realme, Xiaomi, Vivo, and Oppo phones — also enable Autostart for SNAPOUT in your phone's security or settings app.</p>
+    <p>If the issue continues, email us with your phone model and Android version.</p>
   </div>
 
   <div class="faq">
     <h3>The warning screen isn't showing up.</h3>
-    <p>Check that "Display over other apps" is enabled for SNAPOUT in your phone's settings. Some Android versions also require "Draw over other apps" to be granted separately.</p>
+    <p>Check that "Display over other apps" is enabled for SNAPOUT: Settings → Apps → Special app access → Display over other apps → SNAPOUT → Allow.</p>
+  </div>
+
+  <div class="faq">
+    <h3>The app stops working after a while in the background.</h3>
+    <p>This is almost always battery optimization. Your phone's OS is killing the monitoring service to save battery. Disable battery optimization for SNAPOUT as described above. On some phones you also need to enable "Background activity" in the app's battery settings.</p>
+  </div>
+
+  <div class="faq">
+    <h3>Google Sign-In is failing.</h3>
+    <p>Make sure you have a stable internet connection. Try signing out of all Google accounts on the device and signing back in. If the issue persists, email us with your phone model.</p>
   </div>
 
   <div class="faq">
@@ -151,37 +242,33 @@
   </div>
 
   <div class="faq">
-    <h3>What is Monk Mode?</h3>
-    <p>Monk Mode locks your phone completely for a duration you choose. Only apps you have explicitly allowed (like Phone, WhatsApp for emergencies) will work. Everything else is blocked. It is designed for deep focus sessions where you need to genuinely eliminate distraction.</p>
-  </div>
-
-  <div class="faq">
     <h3>What happens if I uninstall SNAPOUT?</h3>
-    <p>All your data is deleted immediately. Because nothing is stored on any server, uninstalling removes every trace of your SNAPOUT data.</p>
+    <p>All local data is deleted immediately. If you were signed in, your cloud backup remains until you delete your account from within the app. Reinstalling and signing in restores everything.</p>
   </div>
 
   <div class="faq">
     <h3>Will there ever be an iOS version?</h3>
-    <p>SNAPOUT is Android-only for now. iOS does not allow third-party apps the level of system access needed to reliably intervene on other apps, so an iOS version is not currently possible.</p>
+    <p>SNAPOUT is Android-only. iOS does not allow third-party apps the level of system access needed to reliably intervene on other apps, so an iOS version is not currently possible.</p>
   </div>
 
   <div class="faq">
     <h3>Is SNAPOUT free?</h3>
-    <p>Yes, the core SNAPOUT experience is free and always will be. We may add optional premium features in the future, but the anti-doomscrolling engine stays free for everyone.</p>
+    <p>Yes. The core SNAPOUT experience — monitoring, warnings, cooldowns, Monk Mode, Night Shield, Guardian Mode, badges — is free and always will be.</p>
   </div>
 
   <div class="faq">
-    <h3>I have feedback or a feature request.</h3>
-    <p>Email us at <a href="mailto:snapoutapporiginal@gmail.com" style="color: #c6bff0;">snapoutapporiginal@gmail.com</a>. We genuinely read everything and the best ideas often come from users.</p>
+    <h3>I have feedback or a feature idea.</h3>
+    <p>Email us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>. We genuinely read everything. The best ideas come from users.</p>
   </div>
 
+  <!-- ── Bug reporting ── -->
   <h2 class="section">Reporting a bug</h2>
-  <p style="color: #c3c5d8; font-size: 15px;">When you report a bug, please include:</p>
-  <ul style="color: #c3c5d8; font-size: 15px; padding-left: 22px; margin-top: 10px;">
-    <li style="margin-bottom: 6px;">Your phone make and model (e.g., Realme 9 Pro, Samsung Galaxy S23)</li>
-    <li style="margin-bottom: 6px;">Your Android version (Settings → About phone)</li>
-    <li style="margin-bottom: 6px;">A description of what you were doing when the bug happened</li>
-    <li>A screenshot if possible</li>
+  <p style="color:#c3c5d8;font-size:15px;">When you email us about a bug, please include:</p>
+  <ul class="bug-list">
+    <li>Your phone make and model (e.g. Realme 9 Pro, Samsung Galaxy A54)</li>
+    <li>Your Android version (Settings → About phone)</li>
+    <li>What you were doing when the bug happened</li>
+    <li>A screenshot or screen recording if possible</li>
   </ul>
 
   <footer>
