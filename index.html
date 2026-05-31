@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SNAPOUT — Reclaim your attention</title>
-<meta name="description" content="SNAPOUT is an Android app that helps you break free from doomscrolling by interrupting compulsive social media use with mindful warnings and a focus-first approach.">
+<meta name="description" content="SNAPOUT is an Android app that helps you break free from doomscrolling by interrupting compulsive social media use with mindful warnings, cooldowns, and a focus-first approach.">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -15,104 +15,208 @@
     min-height: 100vh;
   }
   .wrap {
-    max-width: 680px;
+    max-width: 700px;
     margin: 0 auto;
-    padding: 60px 24px;
+    padding: 60px 24px 80px;
   }
+
+  /* ── Logo ── */
   .logo {
     width: 72px;
     height: 72px;
-    border-radius: 18px;
+    border-radius: 20px;
     background: linear-gradient(135deg, #8B5CF6, #D946EF);
-    margin-bottom: 28px;
+    margin-bottom: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: 600;
-    font-size: 11px;
+    font-weight: 700;
+    font-size: 10px;
     letter-spacing: 2px;
     color: white;
   }
-  h1 {
-    font-size: 38px;
+
+  /* ── Hero ── */
+  .hero-label {
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: -0.5px;
+    letter-spacing: 3px;
+    color: #8B5CF6;
+    text-transform: uppercase;
     margin-bottom: 14px;
-    line-height: 1.15;
+  }
+  h1 {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+    line-height: 1.1;
+    color: #f0f0fa;
   }
   .tagline {
     font-size: 18px;
     color: #a5a8c4;
-    margin-bottom: 48px;
+    margin-bottom: 36px;
     font-weight: 400;
+    line-height: 1.5;
   }
-  h2 {
-    font-size: 20px;
-    font-weight: 600;
-    margin: 40px 0 14px;
-    color: #c6bff0;
-  }
-  p {
+
+  /* ── CTA button ── */
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+    color: white;
+    text-decoration: none;
+    border-radius: 14px;
     font-size: 15px;
-    color: #c3c5d8;
-    margin-bottom: 14px;
+    font-weight: 700;
+    margin-bottom: 48px;
+    transition: opacity 0.15s;
+    box-shadow: 0 4px 24px rgba(139, 92, 246, 0.35);
   }
+  .cta:hover { opacity: 0.9; }
+  .cta svg { width: 20px; height: 20px; fill: white; }
+
+  /* ── Quote ── */
   .mission {
     padding: 24px;
-    background: rgba(139, 92, 246, 0.08);
-    border: 1px solid rgba(139, 92, 246, 0.25);
-    border-radius: 14px;
-    margin: 32px 0;
+    background: rgba(139, 92, 246, 0.07);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 16px;
+    margin: 40px 0;
   }
   .mission p {
     font-size: 16px;
     color: #d8d5ec;
     font-style: italic;
     margin: 0;
+    line-height: 1.7;
   }
-  ul {
-    padding-left: 22px;
-    margin-bottom: 16px;
+
+  /* ── Feature cards ── */
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 48px 0 20px;
+    color: #c6bff0;
+    letter-spacing: -0.3px;
   }
-  li {
-    margin-bottom: 8px;
-    color: #c3c5d8;
+  .features {
+    display: grid;
+    gap: 12px;
+  }
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 18px 20px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 14px;
+  }
+  .feature-icon {
+    font-size: 22px;
+    line-height: 1;
+    margin-top: 2px;
+  }
+  .feature-text strong {
+    display: block;
     font-size: 15px;
+    color: #e8e9f3;
+    margin-bottom: 3px;
   }
+  .feature-text span {
+    font-size: 13.5px;
+    color: #9194b0;
+    line-height: 1.5;
+  }
+
+  /* ── Stats row ── */
+  .stats {
+    display: flex;
+    gap: 12px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+  }
+  .stat {
+    flex: 1;
+    min-width: 120px;
+    padding: 18px;
+    background: rgba(139, 92, 246, 0.07);
+    border: 1px solid rgba(139, 92, 246, 0.18);
+    border-radius: 14px;
+    text-align: center;
+  }
+  .stat-num {
+    font-size: 26px;
+    font-weight: 800;
+    color: #c6bff0;
+    display: block;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: #7b7e96;
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* ── Privacy section ── */
+  .privacy-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 20px 0;
+  }
+  .pill {
+    padding: 7px 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px;
+    font-size: 13px;
+    color: #a5a8c4;
+  }
+  p {
+    font-size: 15px;
+    color: #c3c5d8;
+    margin-bottom: 14px;
+    line-height: 1.7;
+  }
+
+  /* ── Links ── */
   .links {
     display: flex;
-    gap: 14px;
+    gap: 12px;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 48px;
     padding-top: 32px;
-    border-top: 1px solid rgba(200, 200, 240, 0.1);
+    border-top: 1px solid rgba(200, 200, 240, 0.08);
   }
   .links a {
     display: inline-block;
     padding: 10px 18px;
-    background: rgba(139, 92, 246, 0.12);
+    background: rgba(139, 92, 246, 0.1);
     color: #c6bff0;
     text-decoration: none;
     border-radius: 10px;
     font-size: 14px;
     font-weight: 500;
-    border: 1px solid rgba(139, 92, 246, 0.3);
+    border: 1px solid rgba(139, 92, 246, 0.25);
     transition: background 0.15s;
   }
-  .links a:hover {
-    background: rgba(139, 92, 246, 0.2);
-  }
+  .links a:hover { background: rgba(139, 92, 246, 0.2); }
+
+  /* ── Footer ── */
   footer {
     margin-top: 56px;
     padding-top: 24px;
-    border-top: 1px solid rgba(200, 200, 240, 0.08);
+    border-top: 1px solid rgba(200, 200, 240, 0.07);
     font-size: 13px;
     color: #7b7e96;
   }
-  footer a {
-    color: #a5a8c4;
-    text-decoration: none;
-  }
+  footer a { color: #a5a8c4; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -120,36 +224,100 @@
 
   <div class="logo">SNAPOUT</div>
 
+  <p class="hero-label">Android App</p>
   <h1>Reclaim your attention.</h1>
-  <p class="tagline">An Android app that interrupts compulsive scrolling — and gives you back your focus, one session at a time.</p>
+  <p class="tagline">SNAPOUT interrupts compulsive scrolling and gives you back your focus — one session at a time. Built for people who already know they scroll too much.</p>
+
+  <a class="cta" href="https://play.google.com/store/apps/details?id=com.snapout.android" target="_blank">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.18 23.5c.3.17.64.22.97.14l13.2-11.64L13.54 8 3.18 23.5zM20.5 10.5l-2.6-1.46-4.4 3.88 4.4 3.88 2.63-1.48A1.75 1.75 0 0020.5 10.5zM3 1.36A1.5 1.5 0 003.18.5L13.54 12 4.15 21.5 3 1.36zM4.15 2.5L13.54 12l3.84-3.84L4.15 2.5z"/></svg>
+    Download on Google Play
+  </a>
 
   <div class="mission">
     <p>"You weren't born to be a consumer of content. You were born to be a creator of meaning."</p>
   </div>
 
   <h2>What SNAPOUT does</h2>
-  <p>SNAPOUT monitors the apps you choose to limit — Instagram, YouTube, Facebook, or any others you add — and gently intervenes when you've spent too much time scrolling. Instead of just tracking your usage, it <em>interrupts</em> the habit loop with science-backed warnings, thoughtful quotes, and practical alternatives.</p>
+  <p>SNAPOUT monitors the apps you choose to limit — Instagram, YouTube, or any others you add — and intervenes when you've spent too much time scrolling. Instead of just tracking usage, it <em>interrupts</em> the habit loop with science-backed warnings and real alternatives you chose for yourself.</p>
 
-  <h2>How it works</h2>
-  <ul>
-    <li><strong>Set your limits</strong> — how many sessions per day, how long each session.</li>
-    <li><strong>Commit</strong> — sign a personal agreement about what you're trying to change.</li>
-    <li><strong>Get interrupted</strong> — full-screen warnings with brain science, quotes, and real alternatives.</li>
-    <li><strong>Enter Monk Mode</strong> — lock your phone completely when you need deep focus.</li>
-    <li><strong>Track progress</strong> — see your real stats update every day.</li>
-  </ul>
+  <h2>Features</h2>
+  <div class="features">
+    <div class="feature">
+      <span class="feature-icon">📜</span>
+      <div class="feature-text">
+        <strong>Personal Commitment</strong>
+        <span>Sign a covenant with yourself. Set your daily target, your pledges, and what you'll do instead of scrolling.</span>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">⚡</span>
+      <div class="feature-text">
+        <strong>Session Warnings</strong>
+        <span>Full-screen intervention when your session ends. Brain science, quotes, and a 60-second decision window.</span>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">🔀</span>
+      <div class="feature-text">
+        <strong>The Switch</strong>
+        <span>During cooldown, SNAPOUT shows the activities you chose — reading, walking, calling someone. Your own promise, reflected back.</span>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">🧘</span>
+      <div class="feature-text">
+        <strong>Monk Mode</strong>
+        <span>Lock your phone completely for focused time. Choose which apps stay accessible for emergencies.</span>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">🌙</span>
+      <div class="feature-text">
+        <strong>Night Shield</strong>
+        <span>Automatically blocks monitored apps during your sleep hours. Protects your melatonin and your mornings.</span>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">👨‍👧</span>
+      <div class="feature-text">
+        <strong>Guardian Mode</strong>
+        <span>Parents can set up a protected profile for children with daily caps, difficulty levels, and PIN protection.</span>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">🏅</span>
+      <div class="feature-text">
+        <strong>Badges & Streaks</strong>
+        <span>20 badges across four rarity tiers. Track streaks, hours saved, cooldowns completed, and more.</span>
+      </div>
+    </div>
+    <div class="feature">
+      <span class="feature-icon">☁️</span>
+      <div class="feature-text">
+        <strong>Optional Cloud Backup</strong>
+        <span>Sign in with Google to back up your commitment, streak, and settings. Restores automatically on new devices.</span>
+      </div>
+    </div>
+  </div>
 
   <h2>Privacy first</h2>
-  <p>Everything SNAPOUT tracks stays on your device. No servers, no accounts, no analytics, no ads. We built SNAPOUT because we believe attention is sacred — that principle extends to yours.</p>
+  <div class="privacy-row">
+    <span class="pill">No ads</span>
+    <span class="pill">No tracking</span>
+    <span class="pill">No data sold</span>
+    <span class="pill">Sign-in optional</span>
+    <span class="pill">Free forever</span>
+  </div>
+  <p>All usage tracking happens on your device. Sign-in is optional and only used for cloud backup of your own settings — never for analytics or advertising. We use Firebase Authentication and Firestore solely for this purpose.</p>
 
   <div class="links">
     <a href="privacy.html">Privacy policy</a>
-    <a href="support.html">Support</a>
+    <a href="support.html">Support & FAQ</a>
     <a href="mailto:snapoutapporiginal@gmail.com">Contact us</a>
   </div>
 
   <footer>
-    <p>SNAPOUT — Built by The SNAPOUT team · <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a></p>
+    <p>SNAPOUT · Built by The SNAPOUT team · <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a></p>
   </footer>
 
 </div>
