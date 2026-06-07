@@ -83,6 +83,14 @@
     margin: 16px 0;
   }
   .firebase-box p { margin: 0; color: #d8d5ec; }
+  .green-box {
+    padding: 18px 22px;
+    background: rgba(100, 220, 150, 0.06);
+    border-left: 3px solid rgba(100, 220, 150, 0.4);
+    border-radius: 6px;
+    margin: 16px 0;
+  }
+  .green-box p { margin: 0; color: #d8d5ec; }
   footer {
     margin-top: 56px;
     padding-top: 24px;
@@ -98,10 +106,10 @@
   <a href="index.html" class="back">← Back to SNAPOUT</a>
 
   <h1>Privacy policy</h1>
-  <p class="updated">Last updated: May 31, 2026</p>
+  <p class="updated">Last updated: June 7, 2026</p>
 
   <div class="highlight">
-    <p><strong>Short version:</strong> SNAPOUT does not sell your data, show you ads, or track you for any commercial purpose. Usage tracking happens entirely on your device. The only data that ever leaves your device is your settings backup — and only if you choose to sign in with Google. Sign-in is completely optional.</p>
+    <p><strong>Short version:</strong> SNAPOUT does not sell your data, show you ads, or track you for any commercial purpose. All usage tracking stays on your device. The only data that ever leaves your device is your optional settings backup — and only if you choose to sign in with Google. Sign-in is never required.</p>
   </div>
 
   <h2>1. Who we are</h2>
@@ -111,88 +119,135 @@
 
   <h3>App usage statistics</h3>
   <p>SNAPOUT uses Android's <code>PACKAGE_USAGE_STATS</code> permission to detect which app is in the foreground. This lets the app know when you open Instagram, YouTube, or any app you've chosen to monitor.</p>
-  <p><strong>This is read in real time and never transmitted anywhere.</strong> We track only cumulative time on apps you explicitly selected — and that tracking stays on your device.</p>
+  <p><strong>This data is read in real time and never transmitted anywhere.</strong> We track only cumulative time on apps you explicitly selected — and that tracking stays entirely on your device.</p>
 
   <h3>Display over other apps</h3>
-  <p>SNAPOUT uses the <code>SYSTEM_ALERT_WINDOW</code> permission to show full-screen warning overlays when your session limit is reached. This is not used to read what you do in other apps.</p>
+  <p>SNAPOUT uses the <code>SYSTEM_ALERT_WINDOW</code> permission to show full-screen warning overlays when your session limit is reached or Focus Lock is active. This permission is not used to read what you do inside other apps.</p>
 
   <h3>Vibration</h3>
-  <p>Used to create haptic feedback during cooldown warnings. No data is involved.</p>
+  <p>Used to create haptic feedback during session warnings and cooldowns. No data is involved.</p>
 
   <h3>Foreground service</h3>
-  <p>SNAPOUT runs a foreground service to continuously monitor app usage. A persistent notification is shown while it runs, as required by Android. The service only performs the monitoring and intervention functions described above.</p>
+  <p>SNAPOUT runs a foreground service to continuously monitor app usage in the background. A persistent notification is shown while it runs, as required by Android. The service only performs the monitoring and intervention functions described in this policy.</p>
 
   <h3>Boot completed</h3>
-  <p>SNAPOUT uses <code>RECEIVE_BOOT_COMPLETED</code> to restart its monitoring service after your device reboots, so you don't have to relaunch the app manually.</p>
+  <p>SNAPOUT uses <code>RECEIVE_BOOT_COMPLETED</code> to restart its monitoring service after your device reboots, so protection continues automatically without requiring you to relaunch the app.</p>
 
   <h3>Google Sign-In (optional)</h3>
   <div class="firebase-box">
-    <p>SNAPOUT offers <strong>optional</strong> Google Sign-In powered by Firebase Authentication (Google LLC). Sign-in is never required. If you choose to sign in, your Google account email and a unique Firebase user ID are used to identify your backup. We do not access your Google contacts, calendar, or any other Google data.</p>
+    <p>SNAPOUT offers <strong>optional</strong> Google Sign-In powered by Firebase Authentication (Google LLC). Sign-in is never required to use the app. If you choose to sign in, we receive your Google account email address and a unique Firebase user ID. We do not access your Google contacts, calendar, Drive, or any other Google service data.</p>
   </div>
 
   <h3>Cloud backup (optional, signed-in users only)</h3>
   <div class="firebase-box">
-    <p>If you sign in, your settings, commitment data, streak, monitored app list, selected Switch activities, and badge progress are backed up to <strong>Google Firestore</strong> (hosted in the Mumbai, India region). This data is stored under your unique Firebase user ID and is only accessible by you. You can delete it at any time from the Profile screen. We use Firebase solely for this backup — not for analytics, advertising, or any other purpose.</p>
+    <p>If you sign in, the following data is backed up to <strong>Google Cloud Firestore</strong> (Mumbai, India region): your settings, commitment answers, streak, monitored app list, Switch activity selections, Focus Lock preferences, and badge progress. This data is stored under your unique Firebase user ID and is accessible only by you. It is never used for advertising, analytics, or any commercial purpose. You can permanently delete it at any time from Profile → Delete Account.</p>
   </div>
 
   <h2>3. What we store on your device</h2>
   <p>SNAPOUT stores the following locally using Android's <code>SharedPreferences</code>:</p>
   <ul>
-    <li>Session limits, cooldown duration, and other settings</li>
+    <li>Session limits, cooldown duration, and monitoring settings</li>
     <li>List of apps you selected to monitor</li>
     <li>Daily usage totals for monitored apps</li>
     <li>Your commitment form answers (name, target hours, pledges)</li>
     <li>Your Switch activity selections</li>
-    <li>Streak counts, badges, cooldowns completed, hours saved</li>
-    <li>Night Shield settings and Guardian mode settings</li>
+    <li>Focus Lock settings (duration, schedule, active state)</li>
+    <li>Streak counts, badges earned, cooldowns completed, hours saved</li>
+    <li>Guardian Mode settings (child nickname, daily cap, difficulty level)</li>
+    <li>Sign-in state (whether you are signed in, your email, your Firebase UID)</li>
   </ul>
-  <p>If you are not signed in, this data never leaves your device. It is stored in your app's private data directory, accessible only by SNAPOUT.</p>
-  <p>If you are signed in, the above data is also backed up to Firestore as described in Section 2.</p>
+  <p>If you are not signed in, none of this data ever leaves your device. If you are signed in, it is also backed up to Firestore as described above.</p>
 
-  <h2>4. What we do NOT do</h2>
+  <h2>4. Data collected — Play Store Data Safety summary</h2>
+  <div class="green-box">
+    <p>This section maps directly to Google Play's Data Safety requirements.</p>
+  </div>
+
+  <h3>Data collected from you</h3>
+  <ul>
+    <li><strong>Email address</strong> — collected only if you sign in with Google. Used solely to identify your backup. Not shared with third parties for commercial purposes.</li>
+    <li><strong>User ID (Firebase UID)</strong> — generated by Firebase on sign-in. Used to associate your backup with your account. Not linked to advertising.</li>
+    <li><strong>App activity</strong> — daily usage totals for apps you chose to monitor. Stored locally on your device. Backed up to Firestore only if signed in.</li>
+    <li><strong>App settings and preferences</strong> — your commitment, streak, badges, Focus Lock config, session limits. Stored locally. Backed up to Firestore only if signed in.</li>
+  </ul>
+
+  <h3>Data NOT collected</h3>
+  <ul>
+    <li>No precise or approximate location</li>
+    <li>No contacts, photos, videos, or files</li>
+    <li>No financial or payment information</li>
+    <li>No health or fitness data</li>
+    <li>No messages or notification content from other apps</li>
+    <li>No device identifiers used for advertising</li>
+    <li>No crash logs sent off-device</li>
+  </ul>
+
+  <h3>Data security</h3>
+  <ul>
+    <li>All data transmitted to Firebase is encrypted in transit using TLS.</li>
+    <li>Firestore Security Rules ensure only you can access your own data.</li>
+    <li>Local data is stored in Android's sandboxed app-private storage.</li>
+    <li>We do not share your data with any third party for advertising or tracking.</li>
+  </ul>
+
+  <h3>Data deletion</h3>
+  <p>You can request deletion of all your data at any time from within the app (Profile → Delete Account) or by emailing us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>. We will permanently delete all associated Firestore data within 7 days of the request.</p>
+
+  <h2>5. What we do NOT do</h2>
   <ul>
     <li>We do not sell your data to anyone, ever.</li>
     <li>We do not show ads inside SNAPOUT.</li>
-    <li>We do not use Firebase Analytics, Google Analytics, Mixpanel, or any analytics service.</li>
+    <li>We do not use Firebase Analytics, Google Analytics, Mixpanel, Crashlytics, or any analytics or crash reporting service.</li>
     <li>We do not use advertising SDKs or track you for ad targeting.</li>
     <li>We do not collect location data.</li>
     <li>We do not access your contacts, photos, files, or messages.</li>
-    <li>We do not read the content of notifications in other apps.</li>
-    <li>We do not use crash reporting services that send data off-device.</li>
+    <li>We do not read notification content from other apps.</li>
     <li>We do not share data with any third party except Firebase (Google LLC) for the optional cloud backup described above.</li>
   </ul>
 
-  <h2>5. Firebase and Google</h2>
-  <p>We use two Firebase services — Firebase Authentication and Cloud Firestore — solely to power the optional sign-in and cloud backup feature. Firebase is operated by Google LLC. When you sign in, your data is subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a> in addition to ours. If you do not sign in, no data is sent to Firebase or Google through SNAPOUT.</p>
+  <h2>6. Firebase and Google</h2>
+  <p>We use two Firebase services — Firebase Authentication and Cloud Firestore — solely to power the optional sign-in and cloud backup feature. Firebase is operated by Google LLC and is subject to <a href="https://policies.google.com/privacy" target="_blank">Google's Privacy Policy</a>. If you do not sign in, no data is sent to Firebase or Google through SNAPOUT at any point.</p>
 
-  <h2>6. Data sharing</h2>
-  <p>We do not share your personal data with any third parties for commercial purposes. The only external service that receives any data is Firebase (Google LLC), and only if you choose to sign in. We have no advertising partners, data brokers, or analytics providers.</p>
+  <h2>7. Payments and subscriptions</h2>
+  <p>SNAPOUT may offer optional premium features via Google Play's in-app billing system. All payment processing is handled entirely by Google Play — we never collect, store, or have access to your payment information, card details, or billing address. Subscriptions can be managed or cancelled at any time from your Google Play account settings. Refund requests are handled per <a href="https://support.google.com/googleplay/answer/2479637" target="_blank">Google Play's refund policy</a>.</p>
 
-  <h2>7. Data retention and deletion</h2>
-  <p><strong>Local data:</strong> Uninstalling SNAPOUT or clearing app storage deletes all local data immediately.</p>
-  <p><strong>Cloud data (signed-in users):</strong> You can delete your cloud data at any time from Profile → Delete Account. This permanently removes your Firestore document and Firebase account. We do not retain any data after deletion.</p>
+  <h2>8. Data sharing</h2>
+  <p>We do not share your personal data with any third parties for commercial purposes. The only external service that receives any data is Firebase (Google LLC), and only if you choose to sign in. We have no advertising partners, data brokers, or analytics providers receiving your information.</p>
 
-  <h2>8. Children's privacy</h2>
-  <p>SNAPOUT includes a Guardian Mode designed for parents to set up child profiles. We do not knowingly collect personal information from children under 13. The child profile stores only a nickname, difficulty level, and daily cap — locally on the parent's device and, if the parent is signed in, in their own Firestore document under their account. No child account is created in Firebase.</p>
+  <h2>9. Data retention and deletion</h2>
+  <p><strong>Local data:</strong> Uninstalling SNAPOUT or clearing app storage deletes all local data immediately and permanently.</p>
+  <p><strong>Cloud data (signed-in users):</strong> You can delete your cloud data at any time from Profile → Delete Account. This permanently removes your Firestore document and Firebase Auth account. We do not retain any data after deletion is confirmed. You may also email us to request deletion.</p>
 
-  <h2>9. Your rights</h2>
-  <p>Under laws such as GDPR (Europe), CCPA (California), and the DPDP Act (India), you have the following rights:</p>
+  <h2>10. Children's privacy</h2>
+  <p>SNAPOUT includes a Guardian Mode designed for parents to manage screen time for children. We do not knowingly collect personal information from children under 13. The Guardian Mode profile stores only a child's nickname, difficulty level, and daily usage cap — on the parent's device and, if the parent is signed in, within the parent's own Firestore document under their account. No separate child account is created in Firebase. Parents are solely responsible for the use of Guardian Mode on their device.</p>
+
+  <h2>11. Your rights</h2>
+  <p>Under laws such as GDPR (Europe), CCPA (California), and the DPDP Act (India), you have the following rights regarding your data:</p>
   <ul>
-    <li><strong>Right to access:</strong> View all local data in the app. View cloud data by contacting us.</li>
-    <li><strong>Right to delete:</strong> Clear app storage to delete local data. Use Profile → Delete Account to delete cloud data.</li>
-    <li><strong>Right to portability:</strong> Contact us at the email below and we will provide your data.</li>
-    <li><strong>Right to object:</strong> Disable Usage Access permission or uninstall to stop all processing.</li>
+    <li><strong>Right to access:</strong> View all local data directly in the app. For cloud data, contact us and we will provide it.</li>
+    <li><strong>Right to delete:</strong> Clear app storage to delete local data. Use Profile → Delete Account to delete cloud data, or email us.</li>
+    <li><strong>Right to portability:</strong> Email us and we will provide your data in a readable format.</li>
+    <li><strong>Right to correct:</strong> Update your settings and commitment data directly in the app at any time.</li>
+    <li><strong>Right to object:</strong> Disable the Usage Access permission or uninstall the app to stop all processing immediately.</li>
   </ul>
-  <p>Contact us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a> for any rights requests.</p>
+  <p>To exercise any of these rights, contact us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>. We respond within 7 business days.</p>
 
-  <h2>10. Security</h2>
-  <p>Local data is stored in Android's sandboxed app-private storage, protected from other apps. Cloud data in Firestore is protected by Firebase Security Rules that ensure only you can access your own data — we enforce this at the database level. We strongly recommend keeping your device secured with a lock screen and keeping Android updated.</p>
+  <h2>12. Security</h2>
+  <p>Local data is stored in Android's sandboxed app-private storage, inaccessible to other apps. Cloud data in Firestore is protected by server-side Security Rules ensuring only you can read or write your own document. All data in transit between your device and Firebase is encrypted using TLS 1.2 or higher. We strongly recommend keeping your device secured with a lock screen and keeping Android updated.</p>
 
-  <h2>11. Changes to this policy</h2>
-  <p>If we change how SNAPOUT handles data we will update the "Last updated" date at the top of this page and notify users through the app before the change takes effect. The current version of this policy always lives at this URL.</p>
+  <h2>13. Third-party services used</h2>
+  <ul>
+    <li><strong>Firebase Authentication</strong> (Google LLC) — optional sign-in. <a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Privacy</a></li>
+    <li><strong>Cloud Firestore</strong> (Google LLC) — optional settings backup. <a href="https://firebase.google.com/support/privacy" target="_blank">Firebase Privacy</a></li>
+    <li><strong>Google Play Billing</strong> (Google LLC) — optional in-app purchases. <a href="https://policies.google.com/privacy" target="_blank">Google Privacy</a></li>
+  </ul>
+  <p>No other third-party SDKs, analytics tools, or advertising networks are used in SNAPOUT.</p>
 
-  <h2>12. Contact</h2>
-  <p>Questions about this policy or how SNAPOUT handles your data? Email us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>. We read every message.</p>
+  <h2>14. Changes to this policy</h2>
+  <p>If we change how SNAPOUT handles data we will update the "Last updated" date at the top of this page and notify signed-in users through the app before the change takes effect. Continued use of the app after a policy update constitutes acceptance of the revised policy. The current version of this policy always lives at this URL.</p>
+
+  <h2>15. Contact</h2>
+  <p>Questions about this policy or how SNAPOUT handles your data? Email us at <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a>. We read every message and respond within 7 business days.</p>
 
   <footer>
     <p>SNAPOUT · The SNAPOUT team · <a href="mailto:snapoutapporiginal@gmail.com">snapoutapporiginal@gmail.com</a></p>
